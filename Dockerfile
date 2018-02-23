@@ -1,4 +1,5 @@
 FROM ubuntu:xenial
+RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
 # setup keys
 RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 421C365BD9FF1F717815A3895523BAEEB01FA116
@@ -19,7 +20,6 @@ RUN rosdep update
 
 # environment setup
 RUN echo "source /opt/ros/kinetic/setup.bash" >> ~/.bashrc
-RUN source ~/.bashrc
 
 # install dependencies for building packages
 RUN apt-get install -y python-rosinstall python-rosinstall-generator python-wstool build-essential
