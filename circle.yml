@@ -14,6 +14,13 @@ dependencies:
 test:
   override:
     - docker run -d jonathanschmalhofer/recursivestereo:$CIRCLE_SHA1; sleep 10
+    - mkdir -p ~/my_workspace/src
+    - cd ~/my_workspace/src
+    - git clone https://github.com/JonathanSchmalhofer/octomap_catkin_gtest.git
+    - cd ~/my_workspace
+    - catkin build -c
+    - cd ~/my_workspace
+    - catkin run_tests && catkin_test_results
 
 deployment:
   hub: 
