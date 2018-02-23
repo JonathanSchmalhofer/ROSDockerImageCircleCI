@@ -7,10 +7,9 @@ dependencies:
     - "~/docker"
   override:
     - docker info
-    - docker rm $(docker ps -a -q)
-    - docker rmi $(docker images -q)
-    - docker build -t jonathanschmalhofer/recursivestereo .
-    - mkdir -p ~/docker; docker save jonathanschmalhofer/recursivestereo
+    - if [[ -e ~/docker/docker_image.tar ]]; then docker load --input ~/docker/docker_image.tar; fi
+    - docker build -t jonathanschmalhofer/recursivestereo
+    - mkdir -p ~/docker; docker save jonathanschmalhofer/recursivestereo > ~/docker/docker_image.tar
 
 test:
   override:
