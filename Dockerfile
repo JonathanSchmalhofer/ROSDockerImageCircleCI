@@ -43,6 +43,9 @@ RUN wget https://github.com/wxWidgets/wxWidgets/releases/download/v3.1.1-rc/wxWi
     make install
 
 # final refresh and install catkin tools
+RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu `lsb_release -sc` main" > /etc/apt/sources.list.d/ros-latest.list'
+RUN wget http://packages.ros.org/ros.key -O - | apt-key add -
+RUN apt-get update
 RUN apt-get install -y python-catkin-tools
 RUN rosdep update
 RUN apt-get update
