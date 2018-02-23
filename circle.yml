@@ -28,3 +28,4 @@ deployment:
     commands:
       - docker login -e $DOCKER_EMAIL -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
       - docker push jonathanschmalhofer/recursivestereo:$CIRCLE_SHA1
+      - docker push jonathanschmalhofer/recursivestereo
