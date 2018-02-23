@@ -42,3 +42,8 @@ RUN wget https://github.com/wxWidgets/wxWidgets/releases/download/v3.1.1-rc/wxWi
     ./configure --disable-shared --enable-unicode --with-opengl && \
     make && \
     make install
+
+# final refresh and install catkin tools
+RUN apt-get install python-catkin-tools
+RUN rosdep update
+RUN apt-get update
