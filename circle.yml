@@ -13,8 +13,7 @@ dependencies:
 
 test:
   override:
-    - docker run -d -p 9200:9200 jonathanschmalhofer/recursivestereo; sleep 10
-    - curl --retry 10 --retry-delay 5 -v http://localhost:9200
+    - docker run -d jonathanschmalhofer/recursivestereo; sleep 10
 
 deployment:
   hub: 
