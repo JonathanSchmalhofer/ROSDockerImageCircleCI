@@ -8,16 +8,16 @@ dependencies:
   override:
     - docker info
     - if [[ -e ~/docker/image.tar ]]; then docker load --input ~/docker/image.tar; fi
-    - docker build -t jonathanschmalhofer/recursivestereo .
-    - mkdir -p ~/docker; docker save jonathanschmalhofer/recursivestereo > ~/docker/image.tar
+    - docker build -t jonathanschmalhofer/recursivestereo:$CIRCLE_SHA1 .
+    - mkdir -p ~/docker; docker save jonathanschmalhofer/recursivestereo:$CIRCLE_SHA1 > ~/docker/image.tar
 
 test:
   override:
-    - docker run -d jonathanschmalhofer/recursivestereo; sleep 10
+    - docker run -d jonathanschmalhofer/recursivestereo:$CIRCLE_SHA1; sleep 10
 
 deployment:
   hub: 
     branch: master
     commands:
       - docker login -e $DOCKER_EMAIL -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-      - docker push jonathanschmalhofer/recursivestereo
+      - docker push jonathanschmalhofer/recursivestereo:$CIRCLE_SHA1
