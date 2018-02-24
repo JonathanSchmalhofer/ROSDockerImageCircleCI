@@ -2,6 +2,7 @@ machine:
   services:
     - docker
 
+
 dependencies:
   cache_directories:
     - "~/docker"
@@ -9,7 +10,7 @@ dependencies:
     - docker info
     - if [[ -e ~/docker/image.tar ]]; then docker load --input ~/docker/image.tar; fi
     - docker build --rm=false -t jonathanschmalhofer/recursivestereo:latest .
-    - mkdir -p ~/docker; docker save jonathanschmalhofer/recursivestereo:$CIRCLE_SHA1 > ~/docker/image.tar
+    - mkdir -p ~/docker; docker save jonathanschmalhofer/recursivestereo:latest > ~/docker/image.tar
 
 test:
   override:
@@ -18,6 +19,7 @@ test:
     - cd ~/my_workspace/src
     - git clone https://github.com/JonathanSchmalhofer/octomap_catkin_gtest.git
     - cd ~/my_workspace
+
 
 deployment:
   hub: 
