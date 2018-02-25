@@ -24,7 +24,7 @@ RUN echo "source /opt/ros/kinetic/setup.bash" >> ~/.bashrc
 # install dependencies for building packages
 RUN apt-get install -y python-rosinstall python-rosinstall-generator python-wstool build-essential
 
-# install additional dependencies
+# install additional dependencies - see https://www.binarytides.com/install-wxwidgets-ubuntu/
 RUN apt-get update
 RUN apt-get install -y ros-kinetic-octomap*
 RUN apt-get install -y python-rospkg
