@@ -4,7 +4,9 @@ jobs:
         machine: true
         steps:
             - checkout
-            - run: docker build --rm=false -t jonathanschmalhofer/recursivestereo:latest .
             - run: |
-                - docker login -e $DOCKER_EMAIL -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-                - docker push jonathanschmalhofer/recursivestereo:latest
+                docker info
+                docker build --rm=false -t jonathanschmalhofer/recursivestereo:latest .
+            - run: |
+                docker login -e $DOCKER_EMAIL -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+                docker push jonathanschmalhofer/recursivestereo:latest
