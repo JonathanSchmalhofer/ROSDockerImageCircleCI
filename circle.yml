@@ -16,5 +16,5 @@ jobs:
                 git clone https://github.com/JonathanSchmalhofer/octomap_catkin_gtest.git
                 cd ~/my_workspace
             - run: |
-                docker login -e $DOCKER_EMAIL -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+                docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
                 docker push jonathanschmalhofer/recursivestereo:latest
