@@ -6,7 +6,15 @@ jobs:
             - checkout
             - run: |
                 docker info
+                if [[ -e ~/docker/image.tar ]]; then docker load --input ~/docker/image.tar; fi
                 docker build --rm=false -t jonathanschmalhofer/recursivestereo:latest .
+                mkdir -p ~/docker; docker save jonathanschmalhofer/recursivestereo:latest > ~/docker/image.tar
+            - run: |
+                docker run -d jonathanschmalhofer/recursivestereo:latest; sleep 10
+                mkdir -p ~/my_workspace/src
+                cd ~/my_workspace/src
+                git clone https://github.com/JonathanSchmalhofer/octomap_catkin_gtest.git
+                cd ~/my_workspace
             - run: |
                 docker login -e $DOCKER_EMAIL -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
                 docker push jonathanschmalhofer/recursivestereo:latest
