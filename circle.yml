@@ -6,15 +6,14 @@ jobs:
             - checkout
             - run: |
                 docker info
-                if [[ -e ~/docker/image.tar ]]; then docker load --input ~/docker/image.tar; fi
+                if [[ -e ~/docker/ros_master.docker.bin ]]; then docker load --input ~/docker/ros_master.docker.bin; fi
                 docker build --rm=false -t jonathanschmalhofer/recursivestereo:latest .
-                mkdir -p ~/docker; docker save jonathanschmalhofer/recursivestereo:latest > ~/docker/image.tar
+                mkdir -p ~/docker; docker save jonathanschmalhofer/recursivestereo:latest > ~/docker/ros_master.docker.bin
             - run: |
-                docker run -d jonathanschmalhofer/recursivestereo:latest; sleep 10
-                mkdir -p ~/my_workspace/src
-                cd ~/my_workspace/src
-                git clone https://github.com/JonathanSchmalhofer/octomap_catkin_gtest.git
-                cd ~/my_workspace
+                docker run -d jonathanschmalhofer/recursivestereo:latest /bin/bash -c "mkdir -p ~/my_workspace/src; cd ~/my_workspace/src; git clone https://github.com/JonathanSchmalhofer/octomap_catkin_gtest.git; cd ~/my_workspace/src; catkin build; catkin run_tests; catkin_test_results" > ~/dockerrun.log
+                cat ~/dockerrun.log
             - run: |
                 docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
                 docker push jonathanschmalhofer/recursivestereo:latest
+            - store_artifacts:
+                path: ~/docker
